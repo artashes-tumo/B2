@@ -38,6 +38,9 @@ a{color:inherit}
 .btn:focus-visible,a:focus-visible,button:focus-visible{outline:3px solid var(--lift);outline-offset:3px}
 .btn.ghost{background:#FFFDF6;color:var(--ink)}
 
+a.home{font-family:var(--hand);font-size:20px;letter-spacing:1px;text-decoration:none;color:var(--ink);display:inline-block;padding:3px 14px;border:3px solid var(--ink);border-radius:12px 6px 10px 8px/8px 10px 6px 12px;background:#FFFDF6;box-shadow:3px 3px 0 rgba(29,43,68,.25)}
+a.home:hover{background:var(--lift-t)}
+a.home:focus-visible{outline:3px solid var(--lift);outline-offset:3px}
 /* ---------- header ---------- */
 .site{position:sticky;top:0;z-index:20;background:var(--paper);border-bottom:3px solid var(--ink)}
 .site .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
@@ -46,6 +49,7 @@ nav{display:flex;gap:6px;align-items:center}
 nav a{display:flex;align-items:center;gap:6px;text-decoration:none;padding:4px 10px;border-radius:10px;border:2px solid transparent;font-size:20px}
 nav a .dot{width:28px;height:28px;font-size:14px;border-width:2px}
 nav a:hover{border-color:var(--ink)}
+nav a.home-link{border-color:var(--ink);background:#FFFDF6}
 nav a.active{border-color:var(--ink);background:#FFFDF6}
 .burger{display:none;font:inherit;font-size:30px;line-height:1;background:#FFFDF6;border:3px solid var(--ink);border-radius:8px;padding:2px 12px;cursor:pointer}
 
@@ -181,6 +185,7 @@ footer{border-top:3px solid var(--ink);background:var(--paper-2);padding:20px 0;
     <a class="logo" href="#top">FLYING</a>
     <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="menu">☰</button>
     <nav id="menu" aria-label="Main">
+      <a href="index.html" class="home-link">⌂ Home</a>
       <a href="#f1" class="f1"><span class="dot">F1</span>Lift</a>
       <a href="#f2" class="f2"><span class="dot">F2</span>Weight</a>
       <a href="#f3" class="f3"><span class="dot">F3</span>Thrust</a>

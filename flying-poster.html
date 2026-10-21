@@ -18,7 +18,12 @@
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{background:#22304A}
-body{font-family:var(--hand);color:var(--ink);padding:16px;display:flex;justify-content:center;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{font-family:var(--hand);color:var(--ink);padding:16px;display:flex;flex-direction:column;align-items:center;gap:12px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+a.home{font-family:var(--hand);font-size:20px;letter-spacing:1px;text-decoration:none;color:var(--ink);display:inline-block;padding:3px 14px;border:3px solid var(--ink);border-radius:12px 6px 10px 8px/8px 10px 6px 12px;background:#FFFDF6;box-shadow:3px 3px 0 rgba(29,43,68,.25)}
+a.home:hover{background:var(--lift-t)}
+a.home:focus-visible{outline:3px solid var(--lift);outline-offset:3px}
+.backbar{width:100%;max-width:1100px}
+.backbar a.home{background:#FFFDF6}
 #wrap{position:relative}
 #poster{
   width:1100px;height:1560px;transform-origin:top left;
@@ -83,6 +88,7 @@ h2{font-size:42px;letter-spacing:4px;font-weight:400;display:inline-block;border
 @media print{
   html,body{background:none;padding:0}
   body{padding:0;display:block}
+  .backbar{display:none}
   #wrap{width:auto!important;height:auto!important}
   #poster{transform:none!important;width:1100px;margin:0 auto;border-radius:0}
 }
@@ -112,6 +118,8 @@ h2{font-size:42px;letter-spacing:4px;font-weight:400;display:inline-block;border
     <feDisplacementMap in="SourceGraphic" in2="n" scale="3"/>
   </filter>
 </svg>
+
+<div class="backbar"><a class="home" href="index.html">← Home</a></div>
 
 <div id="wrap">
 <main id="poster">

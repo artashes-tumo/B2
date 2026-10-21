@@ -35,6 +35,9 @@ body{
 .btn.ghost{background:#FFFDF6;color:var(--ink)}
 button:focus-visible,.chip:focus-visible,input:focus-visible{outline:3px solid var(--lift);outline-offset:3px}
 
+a.home{font-family:var(--hand);font-size:20px;letter-spacing:1px;text-decoration:none;color:var(--ink);display:inline-block;padding:3px 14px;border:3px solid var(--ink);border-radius:12px 6px 10px 8px/8px 10px 6px 12px;background:#FFFDF6;box-shadow:3px 3px 0 rgba(29,43,68,.25)}
+a.home:hover{background:var(--lift-t)}
+a.home:focus-visible{outline:3px solid var(--lift);outline-offset:3px}
 .top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:8px 18px;border-bottom:3px solid var(--ink);background:var(--paper)}
 .logo{font-size:28px;letter-spacing:4px;border-bottom:4px dashed var(--lift);line-height:1.1}
 .legend{display:flex;gap:12px;flex-wrap:wrap;font-size:19px}
@@ -136,6 +139,7 @@ kbd{font:inherit;border:2px solid var(--ink);border-radius:6px;padding:0 6px;bac
 
 <header class="top">
   <div class="logo">FLIGHT SCHOOL</div>
+  <a class="home" href="index.html">← Home</a>
   <div class="legend" aria-label="The four forces">
     <span class="f1"><b class="dot">F1</b>Lift</span><span class="f2"><b class="dot">F2</b>Weight</span>
     <span class="f3"><b class="dot">F3</b>Thrust</span><span class="f4"><b class="dot">F4</b>Drag</span>
