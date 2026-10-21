@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How Flying Works – The 4 Forces of Flight</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F8F5EC; --paper-2:#EFEADB; --ink:#1D2B44; --pencil:#6B7385; --grid:rgba(29,43,68,.07);
+  --lift:#2A72D4;   --lift-t:#DCE9FB;   --lift-on:#fff;
+  --weight:#CF3F32; --weight-t:#F8DCD8; --weight-on:#fff;
+  --thrust:#23894F; --thrust-t:#D6EEDF; --thrust-on:#fff;
+  --drag:#E39100;   --drag-t:#FBEBC8;   --drag-on:#1D2B44;
+  --hand:'Patrick Hand','Segoe Print','Bradley Hand','Comic Sans MS',cursive;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#22304A}
+body{font-family:var(--hand);color:var(--ink);padding:16px;display:flex;justify-content:center;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+#wrap{position:relative}
+#poster{
+  width:1100px;height:1560px;transform-origin:top left;
+  background-color:var(--paper);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:28px 28px;
+  border:6px solid var(--ink);border-radius:18px 10px 16px 12px/12px 16px 10px 18px;
+  padding:40px 48px 44px;display:flex;flex-direction:column;gap:26px;overflow:hidden;
+}
+.frame{border:3px solid var(--ink);border-radius:14px 6px 12px 8px/8px 12px 6px 14px;background:#FFFDF6}
+
+/* ---- header ---- */
+.top{display:flex;flex-direction:column;gap:6px;height:300px}
+.eyebrow{font-size:20px;letter-spacing:4px;color:var(--pencil)}
+h1{font-size:100px;line-height:1;letter-spacing:3px;font-weight:400;white-space:nowrap}
+.subrow{display:grid;grid-template-columns:1fr 250px;gap:28px;align-items:end;margin-top:2px}
+h2{font-size:42px;letter-spacing:4px;font-weight:400;display:inline-block;border-bottom:4px dashed var(--lift);padding-bottom:2px;margin-bottom:10px}
+.intro{font-size:25px;line-height:1.25;max-width:680px}
+.legend{padding:10px 16px 12px}
+.legend p{font-size:20px;letter-spacing:2px;color:var(--pencil);margin-bottom:4px}
+.legend ul{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:4px 10px;font-size:22px}
+.legend li{display:flex;align-items:center;gap:8px}
+.dot{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:50%;border:2.5px solid var(--ink);font-weight:400;font-size:18px;background:var(--c);color:var(--on)}
+
+/* ---- diagram ---- */
+.diagram{height:370px;padding:2px}
+.diagram svg{width:100%;height:100%;display:block}
+
+/* ---- cards ---- */
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:16px;height:426px}
+.card{display:flex;flex-direction:column;overflow:hidden;border:3px solid var(--ink);border-radius:14px 6px 12px 8px/8px 12px 6px 14px;background:#FFFDF6}
+.card header{display:flex;align-items:center;gap:12px;padding:3px 14px;background:var(--t);border-bottom:6px solid var(--c);height:52px}
+.card header .dot{width:38px;height:38px;font-size:20px}
+.card header b{font-weight:400;font-size:32px;letter-spacing:3px}
+.card header em{margin-left:auto;font-style:normal;font-size:20px;color:var(--pencil);letter-spacing:1px}
+.card .body{display:grid;grid-template-columns:104px 1fr;gap:16px;padding:12px 14px 10px;flex:1}
+.icon{width:104px;height:104px;border:3px dashed var(--ink);border-radius:10px;background:var(--t);display:grid;place-items:center}
+.icon svg{width:88px;height:88px}
+.lead{font-size:23px;line-height:1.15;margin-bottom:6px}
+.lead u{text-decoration:none;color:var(--c);font-weight:700;border-bottom:3px solid var(--c)}
+.card ul{list-style:none;font-size:20px;line-height:1.2}
+.card li{padding-left:18px;position:relative;margin-top:3px}
+.card li::before{content:"";position:absolute;left:2px;top:.5em;width:8px;height:8px;border-radius:50%;background:var(--c)}
+
+/* ---- balance ---- */
+.balance{flex:1;padding:12px 18px 14px;display:flex;flex-direction:column;gap:8px;min-height:0}
+.balance h3{font-size:36px;font-weight:400;letter-spacing:3px;text-align:center}
+.balance h3 span{border-bottom:4px dashed var(--ink)}
+.trio{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;flex:1;min-height:0}
+.rule{border:3px solid var(--ink);border-radius:10px;background:var(--paper);padding:6px 10px 8px;display:flex;flex-direction:column;align-items:center;text-align:center}
+.rule .eq{font-size:30px;letter-spacing:2px}
+.rule svg{width:100%;height:122px}
+.rule p{font-size:22px;line-height:1.15}
+.rule p b{font-weight:400;padding:0 6px;border-radius:6px;background:var(--c);color:var(--on)}
+.r-up{--c:var(--lift);--on:var(--lift-on)} .r-eq{--c:var(--ink);--on:#fff} .r-fw{--c:var(--thrust);--on:var(--thrust-on)}
+.f1{--c:var(--lift);--t:var(--lift-t);--on:var(--lift-on)}
+.f2{--c:var(--weight);--t:var(--weight-t);--on:var(--weight-on)}
+.f3{--c:var(--thrust);--t:var(--thrust-t);--on:var(--thrust-on)}
+.f4{--c:var(--drag);--t:var(--drag-t);--on:var(--drag-on)}
+
+@page{size:297mm 420mm;margin:0}
+@media print{
+  html,body{background:none;padding:0}
+  body{padding:0;display:block}
+  #wrap{width:auto!important;height:auto!important}
+  #poster{transform:none!important;width:1100px;margin:0 auto;border-radius:0}
+}
+</style>
+</head>
+<body>
+
+<!-- shared airplane drawing (side view, nose points right) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="plane" viewBox="0 0 440 140">
+    <g stroke="#1D2B44" stroke-width="4" stroke-linejoin="round" stroke-linecap="round">
+      <path d="M22,50 L6,6 L58,6 L96,42 Z" fill="#DCE9FB"/>
+      <path d="M30,82 L6,104 L50,104 L84,86 Z" fill="#EFEADB"/>
+      <path d="M12,70 C16,48 60,40 130,40 L326,40 C384,40 420,58 428,72 C420,86 384,100 326,100 L130,100 C60,100 16,92 12,70 Z" fill="#FFFDF6"/>
+      <path d="M176,78 L112,132 L176,132 L270,84 Z" fill="#DCE9FB"/>
+      <path d="M334,52 L378,52 C396,56 408,62 414,70 L334,70 Z" fill="#BFD8F5"/>
+      <path d="M435,44 L435,98" stroke-width="6"/>
+      <circle cx="150" cy="62" r="7" fill="#BFD8F5" stroke-width="3"/>
+      <circle cx="184" cy="62" r="7" fill="#BFD8F5" stroke-width="3"/>
+      <circle cx="218" cy="62" r="7" fill="#BFD8F5" stroke-width="3"/>
+      <circle cx="252" cy="62" r="7" fill="#BFD8F5" stroke-width="3"/>
+      <circle cx="286" cy="62" r="7" fill="#BFD8F5" stroke-width="3"/>
+    </g>
+  </symbol>
+  <filter id="rough" x="-5%" y="-5%" width="110%" height="110%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.025" numOctaves="2" seed="4" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="3"/>
+  </filter>
+</svg>
+
+<div id="wrap">
+<main id="poster">
+
+  <header class="top">
+    <p class="eyebrow">SCIENCE POSTER &nbsp;·&nbsp; FORCES &amp; MOTION</p>
+    <h1>HOW FLYING WORKS</h1>
+    <div class="subrow">
+      <div>
+        <h2>THE 4 FORCES OF FLIGHT</h2>
+        <p class="intro">A plane stays in the sky because four forces push and pull on it at the same time. Meet them all!</p>
+      </div>
+      <aside class="legend frame">
+        <p>THE 4 FORCES</p>
+        <ul>
+          <li class="f1"><span class="dot">F1</span>Lift</li>
+          <li class="f2"><span class="dot">F2</span>Weight</li>
+          <li class="f3"><span class="dot">F3</span>Thrust</li>
+          <li class="f4"><span class="dot">F4</span>Drag</li>
+        </ul>
+      </aside>
+    </div>
+  </header>
+
+  <section class="diagram frame" aria-label="Airplane with the four forces">
+    <svg id="main" viewBox="0 0 1000 370" role="img" aria-label="An airplane with arrows for lift (up), weight (down), thrust (forward) and drag (backward)"></svg>
+  </section>
+
+  <section class="cards">
+    <article class="card f1">
+      <header><span class="dot">F1</span><b>LIFT</b><em>pushes UP ↑</em></header>
+      <div class="body">
+        <div class="icon"><svg viewBox="0 0 100 100" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M8,68 C26,46 66,42 94,62 C68,72 32,74 8,68 Z" fill="#fff" stroke="#1D2B44" stroke-width="3.5"/>
+          <path d="M50,40 L50,10 M36,24 L50,8 L64,24" stroke="#2A72D4" stroke-width="8"/>
+          <path d="M30,80 L30,92 M24,86 L30,93 L36,86 M68,80 L68,92 M62,86 L68,93 L74,86" stroke="#1D2B44" stroke-width="3" opacity=".55"/></svg></div>
+        <div>
+          <p class="lead">The <u>UPWARD</u> force that holds the plane in the air.</p>
+          <ul><li>Wings push air down, so the air pushes the wings up.</li><li>Faster flying = more lift.</li></ul>
+        </div>
+      </div>
+    </article>
+
+    <article class="card f2">
+      <header><span class="dot">F2</span><b>WEIGHT</b><em>pulls DOWN ↓</em></header>
+      <div class="body">
+        <div class="icon"><svg viewBox="0 0 100 100" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M50,8 L50,66 M34,50 L50,70 L66,50" stroke="#CF3F32" stroke-width="8"/>
+          <path d="M6,90 Q50,74 94,90" stroke="#1D2B44" stroke-width="4"/>
+          <path d="M16,92 L12,98 M34,86 L30,94 M54,84 L52,92 M74,86 L72,94" stroke="#1D2B44" stroke-width="3" opacity=".5"/></svg></div>
+        <div>
+          <p class="lead">The <u>DOWNWARD</u> force that pulls the plane toward Earth.</p>
+          <ul><li>It is caused by gravity.</li><li>Plane + fuel + people + bags = total weight.</li></ul>
+        </div>
+      </div>
+    </article>
+
+    <article class="card f3">
+      <header><span class="dot">F3</span><b>THRUST</b><em>pushes FORWARD →</em></header>
+      <div class="body">
+        <div class="icon"><svg viewBox="0 0 100 100" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14,50 L78,50 M58,30 L82,50 L58,70" stroke="#23894F" stroke-width="8"/>
+          <path d="M6,30 L30,30 M6,70 L30,70 M12,40 L24,40 M12,60 L24,60" stroke="#1D2B44" stroke-width="3" opacity=".55"/>
+          <path d="M90,36 L90,64" stroke="#1D2B44" stroke-width="5"/></svg></div>
+        <div>
+          <p class="lead">The <u>FORWARD</u> force that pushes the plane through the air.</p>
+          <ul><li>Engines or propellers push air backward.</li><li>So the air pushes the plane forward!</li></ul>
+        </div>
+      </div>
+    </article>
+
+    <article class="card f4">
+      <header><span class="dot">F4</span><b>DRAG</b><em>pulls BACK ←</em></header>
+      <div class="body">
+        <div class="icon"><svg viewBox="0 0 100 100" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <ellipse cx="78" cy="50" rx="14" ry="24" fill="#fff" stroke="#1D2B44" stroke-width="3.5"/>
+          <path d="M62,50 L16,50 M32,32 L14,50 L32,68" stroke="#E39100" stroke-width="8"/>
+          <path d="M96,20 C84,24 84,30 80,34 M96,80 C84,76 84,70 80,66" stroke="#1D2B44" stroke-width="3" opacity=".55"/></svg></div>
+        <div>
+          <p class="lead">The <u>BACKWARD</u> force from air pushing against the plane.</p>
+          <ul><li>It is air resistance – it slows the plane down.</li><li>A smooth, pointed shape has less drag.</li></ul>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <section class="balance frame">
+    <h3><span>WHEN THE FORCES BALANCE</span></h3>
+    <div class="trio">
+      <div class="rule r-up">
+        <div class="eq">LIFT &gt; WEIGHT</div>
+        <svg id="m1" viewBox="0 0 300 160" aria-hidden="true"></svg>
+        <p>Extra lift → the plane <b>CLIMBS</b></p>
+      </div>
+      <div class="rule r-eq">
+        <div class="eq">EQUAL FORCES</div>
+        <svg id="m2" viewBox="0 0 300 160" aria-hidden="true"></svg>
+        <p>Lift = Weight and Thrust = Drag → <b>STEADY</b> level flight</p>
+      </div>
+      <div class="rule r-fw">
+        <div class="eq">THRUST &gt; DRAG</div>
+        <svg id="m3" viewBox="0 0 300 160" aria-hidden="true"></svg>
+        <p>Extra thrust → the plane <b>SPEEDS UP</b></p>
+      </div>
+    </div>
+  </section>
+
+</main>
+</div>
+
+<script>
+(function(){
+  var INK='#1D2B44', C={lift:'#2A72D4',weight:'#CF3F32',thrust:'#23894F',drag:'#E39100'};
+
+  /* arrow pointing along +x from (x,y), then rotated: right 0, down 90, left 180, up -90 */
+  function arrow(x,y,deg,len,color,t,h,hw,sw){
+    var b=len-h;
+    return '<g transform="translate('+x+' '+y+') rotate('+deg+')"><path d="M0,'+(-t/2)+' L'+b+','+(-t/2)+' L'+b+','+(-hw)+' L'+len+',0 L'+b+','+hw+' L'+b+','+(t/2)+' L0,'+(t/2)+' Z" fill="'+color+'" stroke="'+INK+'" stroke-width="'+sw+'" stroke-linejoin="round"/></g>';
+  }
+  function pill(x,y,w,h,color,on,top,bottom){
+    return '<g><rect x="'+x+'" y="'+y+'" width="'+w+'" height="'+h+'" rx="12" fill="'+color+'" stroke="'+INK+'" stroke-width="3"/>'+
+      '<text x="'+(x+w/2)+'" y="'+(y+25)+'" text-anchor="middle" font-family="Patrick Hand,Segoe Print,Comic Sans MS,cursive" font-size="28" fill="'+on+'">'+top+'</text>'+
+      '<text x="'+(x+w/2)+'" y="'+(y+45)+'" text-anchor="middle" font-family="Patrick Hand,Segoe Print,Comic Sans MS,cursive" font-size="18" fill="'+on+'">'+bottom+'</text></g>';
+  }
+  var FONT='font-family="Patrick Hand,Segoe Print,Comic Sans MS,cursive"';
+
+  /* ---------- main diagram ---------- */
+  var main=document.getElementById('main');
+  main.innerHTML=
+    /* little clouds */
+    '<g fill="#fff" stroke="'+INK+'" stroke-width="3" opacity=".9">'+
+      '<path d="M40,330 q0,-22 24,-22 q8,-18 30,-10 q22,-4 24,18 q16,2 14,16 z"/>'+
+      '<path d="M830,40 q0,-18 20,-18 q8,-14 26,-8 q20,-2 20,16 q14,2 12,14 z"/></g>'+
+    '<g filter="url(#rough)">'+
+      '<use href="#plane" x="260" y="109" width="480" height="152.7"/>'+
+    '</g>'+
+    arrow(500,112,-90,80,C.lift,22,46,36,3)+
+    arrow(500,258,90,80,C.weight,22,46,36,3)+
+    arrow(742,185,0,160,C.thrust,22,46,36,3)+
+    arrow(258,185,180,160,C.drag,22,46,36,3)+
+    pill(552,20,190,52,C.lift,'#fff','F1  LIFT','pushes UP')+
+    pill(552,296,190,52,C.weight,'#fff','F2  WEIGHT','pulls DOWN')+
+    pill(770,86,190,52,C.thrust,'#fff','F3  THRUST','pushes FORWARD')+
+    pill(40,86,190,52,C.drag,INK,'F4  DRAG','pulls BACK')+
+    '<text x="985" y="352" text-anchor="end" '+FONT+' font-size="22" fill="#6B7385">THE PLANE FLIES THIS WAY  →</text>';
+
+  /* ---------- mini balance diagrams ---------- */
+  function mini(id,l,w,t,d){
+    var el=document.getElementById(id);
+    el.innerHTML=
+      '<use href="#plane" x="90" y="61" width="120" height="38.2"/>'+
+      arrow(150,62,-90,l,C.lift,9,20,15,2)+
+      arrow(150,98,90,w,C.weight,9,20,15,2)+
+      arrow(212,80,0,t,C.thrust,9,20,15,2)+
+      arrow(88,80,180,d,C.drag,9,20,15,2);
+  }
+  mini('m1',56,28,40,40);
+  mini('m2',38,38,50,50);
+  mini('m3',38,38,78,26);
+
+  /* ---------- scale the poster to fit the screen ---------- */
+  var poster=document.getElementById('poster'), wrap=document.getElementById('wrap');
+  function fit(){
+    var s=Math.min(1.4,(window.innerWidth-32)/1100);
+    poster.style.transform='scale('+s+')';
+    wrap.style.width=(1100*s)+'px';
+    wrap.style.height=(1560*s)+'px';
+  }
+  window.addEventListener('resize',fit); fit();
+})();
+</script>
+</body>
+</html>
